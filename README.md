@@ -5,7 +5,7 @@ This project is about using a [Proportional Integral Derivative controller(PID)]
 
 ## How Does It Work?
 
-The PID controller works on the principal of counteracting against the cross track error (CTE), which is roughly the distance from the point where the vehicle should ideally be located. So basically the more CTE is there, the more steering angle correction is applied (counter steer).
+The PID controller works on the principal of counteracting against the cross track error (CTE), which is roughly the distance from the point where the vehicle should ideally be located to the current location of the vehicle. So basically the more CTE is there, the more steering angle correction is applied (counter steer).
 
 
 ## Dependencies
