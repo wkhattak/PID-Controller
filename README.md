@@ -30,7 +30,7 @@ I started by implementing Twiddle for the steering angle PID controller’s para
 Having spent a lot of time trying to use Twiddle for parameter optimization, I decided to manually tune the parameters by resorting to use the values introduced in the lesson as the starting point (`P=0.2,D=3.0,I=0.004`). I used the *extreme angle count* as a statistic to gauge *ride smoothness*. Below is a summary of the results:
 
 | P | D | I | Extreme Angle count     		| 
-|:--:|:--:|:--:|-------------------------------:| 			
+|:--:|:--:|:--:|--:| 			
 | 0.2 | 3.0 | 0.004 | 7 |
 | 0.4 | 6.0 | 0.004 | 27 |
 | 0.6 | 9.0 | 0.004 | 88 |
