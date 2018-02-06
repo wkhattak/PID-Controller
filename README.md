@@ -18,6 +18,40 @@ The PID controller works on the principal of counteracting against the cross tra
 
 * **I** The I (integral) component is sum of all the previous components. It is generally employed when there is a systematic bias in the system e.g. wheel misalignment, lateral slope for drainage, etc. and  works on this intuition that if the overall error is on the rise then it applies more correction (on either direction) and vice-versa. The resulting vehicle movement after the application of PID components can be seen in [this video clip](/data/PID.mp4). 
 
+The below graph shows the impact of the application of each component:
+
+![PID](/data/pid.png)
+
+
+### Describe how the final hyper parameters were chosen.
+
+I started by implementing Twiddle for the steering angle PID controller’s parameters (tau). I first tried by optimizing all 3 parameters with the default throttle of `0.3`. However, this didn’t work as the car would crash within few seconds. Then the throttle was reduced to `0.1` as there’s not enough straight track for the Twiddle to converge. However, that still didn’t work. Based on the lessons, I changed the order of parameter optimization so that the order is [P,D,I] but it seemed like the I parameter was causing the car to crash quite early on. It could be that the required I parameter value was very small but Twiddle started off with 1 and required considerable amount of steps (reporting of CTE by the simulator, calculating the steering angle & sending the calculated angle back to the simulator = 1 step). Consequently, only the P & D parameters were kept for optimization (I was kept as `0`).The optimization seemed to generate some viable values for P & D but only for throttle below `0.2`. It is important to mention that I configured the Twiddle to run continuously if the Twiddle error is above a threshold or the CTE is above `0.0029` (observed value when the car is going straight without oscillating).
+Having spent a lot of time trying to use Twiddle for parameter optimization, I decided to manually tune the parameters by resorting to use the values introduced in the lesson as the starting point. I used the *extreme angle count* as a statistic to gauge *ride smoothness*. Below is a summary of the results:
+
+TABLE
+
+I kept the I constant `0.004` in the start and concentrated on optimizing P & D. Further, I kept the same ratio (`1:15`) to begin with. Generally, increasing the parameters’ size resulted in roughly exponential increase in extreme angles. On the other hand, just increasing P or D resulted in more extreme angles. However, in case of P it made the car slow to respond when encountered with curves. Also, decreasing P or D in the same ratio, made the car very slow to correct itself, e.g. with a setting of `P=0.1` & `D=1.5`, the crashed straightaway. Similarly, decreasing D from `3` to `2.0` & `1.5` resulted in very slow correction, leading to a crash. In the end, I settled for `P=0.2` & `D=4.0`.
+
+Next, I looked into optimizing the I value by keeping P & D constant. Setting to `0` caused the car to go very slow, which is suggestive of large CTE. The results of other tested values for I are listed below:
+
+TABLE
+
+Finally, I chose to use the values `P=0.2`, `D=4.0` & `I=0.004` for the steering PID controller as these values provided a smoother drive yet the car was reactive enough on curves in terms of timely steering correction.
+ 
+**Findings:**
+
+1. Optimize parameters in this order : P -> D -> I
+2. For best results, the parameters need to be optimized constantly taking into account speed, road curvature, friction, rain, snow, wind, lateral slope & uphill/downhill factors. 
+3. Different parameter values for different throttle/speed values as at higher speeds a sharper steering correction is required else the car ends up hitting the curb.
+4. The evaluation steps (number of steps before Twiddle evaluates error) need to be reduced for higher speeds and vice-versa.
+
+Apart from the steering PID controller, I also implemented a throttle PID controller and was able to use Twiddle for optimizing the parameters. The throttle PID controller is in fact configured to constantly use Twiddle. The effect of throttle PID controller resulted in automatically slowing down the car at curves and speeding it up at straight patches. 
+
+
+The below graph shows the impact of the application of each Twiddle in relation to the PID:
+
+![PID](/data/pid-twiddle.png)
+
 ## Dependencies
 
 * cmake >= 3.5
