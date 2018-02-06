@@ -43,14 +43,14 @@ Next, I looked into optimizing the I value by keeping P & D constant (`0.2` & `4
 
 | P | D | I | Description   		| 
 |:--:|:--:|:--:|-------------------------------:| 			
-| 0.2 | 4.0 | 0.1 | Too much correction, straightaway crash |
-| 0.2 | 4.0 | 0.01 | A bit better but still crashed |
-| 0.2 | 4.0 | 0.001 | Worked but extreme correction & slow to react i.e. touched the edges few times but no crash |
-| 0.2 | 4.0 | 0.0001 | Worked with fewer extreme angles but a bit slow to correct on curves |
-| 0.2 | 4.0 | 0.0005 | Still hitting the curb |
-| 0.2 | 4.0 | 0.005 | Much better but extreme angles increased to 30 |
-| 0.2 | 4.0 | 0.003 | Same as 0.0004 |
-| 0.2 | 4.0 | 0.007 | Hitting the curb quite early on |
+| 0.2 | 4.0 | 0.1 |Too much correction, straightaway crash|
+| 0.2 | 4.0 | 0.01 |A bit better but still crashed|
+| 0.2 | 4.0 | 0.001 |Worked but extreme correction & slow to react i.e. touched the edges few times but no crash|
+| 0.2 | 4.0 | 0.0001 |Worked with fewer extreme angles but a bit slow to correct on curves|
+| 0.2 | 4.0 | 0.0005 |Still hitting the curb|
+| 0.2 | 4.0 | 0.005 |Much better but extreme angles increased to 30|
+| 0.2 | 4.0 | 0.003 |Same as 0.0004|
+| 0.2 | 4.0 | 0.007 |Hitting the curb quite early on|
 
 Finally, I chose to use the values `P=0.2`, `D=4.0` & `I=0.004` for the steering PID controller as these values provided a smoother drive yet the car was reactive enough on curves in terms of timely steering correction.
  
@@ -101,3 +101,22 @@ There's an experimental patch for windows in this [PR](https://github.com/udacit
 4. Run it: `./pid`. 
 
 Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
+
+## Usage
+
+### With Simulator
+
+Follow the build instructions above. Once the program is running, start the simulator. You should see a *connected!!!* message upon successful connection between the simulator and the c++ program. Hit the *Start button*. 
+
+## Directory Structure
+
+* **data:** Directory containing video clips and images
+* **src:** Directory containing c++ source files
+* **CMakeLists.txt:** File containing compilation instructions
+* **README.md:** Project readme file
+* **install-mac.sh:** Script for installing uWebSockets on Macintosh
+* **install-ubuntu.sh:** Script for installing uWebSockets on Ubuntu
+
+## License
+
+The content of this project is licensed under the [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/us/deed.en_US).
