@@ -5,8 +5,18 @@ This project is about using a [Proportional Integral Derivative controller(PID)]
 
 ## How Does It Work?
 
-The PID controller works on the principal of counteracting against the cross track error (CTE), which is roughly the distance from the point where the vehicle should ideally be located to the current location of the vehicle. So basically the more CTE is there, the more steering angle correction is applied (counter steer).
+The PID controller works on the principal of counteracting against the cross track error (CTE) or simply the error, which is roughly the distance from the point where the vehicle should ideally be located to the current location of the vehicle. So basically the more CTE is there, the more steering angle correction is applied (counter steer).
 
+## Rubric Points
+
+## Reflection
+#### Describe the effect each of the P, I, D components had in your implementation.
+
+* **P** The P (proportional) component is inversely proportional to the CTE i.e. the greater the error, the more aggressive this component is by counteracting against the error. However, just by using this component alone, the car swerves badly which is due to the reason that by the time the car compensates for the error, it overshoots to the other side of the reference point at which point it tries to correct itself again and then the whole cycle repeats itself over and over again (oscillatory motion) as shown in [this video clip](/data/P.mp4). Increasing P causes an increase in oscillations and vice-versa.
+
+* **D** The D (derivative) component is the rate of change of the CTE i.e. its derivative (difference between current and previous CTE). It takes into consideration the previous CTE and reduces the oscillatory movement by reducing the aggressive correction applied by the P component as shown in [this video clip](/data/PD.mp4). Basically, as the error rate decreases, it reduces the effect of P and vice-versa.
+
+* **I** The I (integral) component is sum of all the previous components. It is generally employed when there is a systematic bias in the system e.g. wheel misalignment, lateral slope for drainage, etc. and  works on this intuition that if the overall error is on the rise then it applies more correction (on either direction) and vice-versa. The resulting vehicle movement after the application of PID components can be seen in [this video clip](/data/PID.mp4). 
 
 ## Dependencies
 
